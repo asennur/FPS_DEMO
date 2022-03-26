@@ -7,6 +7,9 @@ public class PistolFire : MonoBehaviour
     public GameObject blackPistol;
     public bool isFiring = false;
     public GameObject muzzleFlash;
+    public AudioSource pistolShot;
+    public float toTarget;
+    
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -21,7 +24,10 @@ public class PistolFire : MonoBehaviour
     IEnumerator FireThePistol()
     {
         isFiring = true;
+        RaycastHit hit;
+        toTarget = PlayerCasting.distanceFromTarget;
         blackPistol.GetComponent<Animator>().Play("Fire_Pistol");
+        pistolShot.Play();
         muzzleFlash.SetActive(true);
         yield return new WaitForSeconds(0.03f);
         muzzleFlash.SetActive(false);
